@@ -22,8 +22,10 @@ class Restaurant(db.Model, SerializerMixin):
 
     # add relationship
     restaurant_pizzas = db.relationship("RestaurantPizza", back_populates="restaurant", cascade="all, delete-orphan")
+    pizzas = association_proxy("restaurant_pizzas", "pizza")
 
-    # add serialization rules
+    #serialization rules
+    serialize_rules = ("-restaurant_pizzas.restaurant",)
 
     def __repr__(self):
         return f"<Restaurant {self.name}>"
@@ -37,6 +39,8 @@ class Pizza(db.Model, SerializerMixin):
     ingredients = db.Column(db.String)
 
     # add relationship
+    restaurant_pizzas = db.relationship("RestaurantPizza", back_populates="restaurant", cascade="all, delete-orphan")
+    restaurants = association_proxy("restaurant_pizzas", "restaurant")
 
     # add serialization rules
 
