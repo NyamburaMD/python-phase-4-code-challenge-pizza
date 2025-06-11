@@ -96,6 +96,13 @@ class RestaurantPizzaCreateResource(Resource):
 
         return jsonify(result), 201
     
-    if __name__ == "__main__":
-        app.run(port=5555, debug=True)
+
+#routes
+api.add_resource(RestaurantListResource, "/restaurants")
+api.add_resource(RestaurantResource, "/restaurants/<int:id>")
+api.add_resource(PizzaListResource, "/pizzas")
+api.add_resource(RestaurantPizzaCreateResource, "/restaurant_pizzas")
+    
+if __name__ == "__main__":
+    app.run(port=5555, debug=True)
     
